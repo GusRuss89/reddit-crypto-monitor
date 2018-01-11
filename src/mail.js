@@ -22,7 +22,7 @@ const prependMsg = (content) => {
 const notification = (subject, to, cb = () => null) => {
   const sendData = {
     from: 'Crypto Bot <cryptobot@manyquotes.com.au>',
-    to: ['angus@syntropy.xyz'],
+    to: to,
     subject: subject,
     html: msg
   }

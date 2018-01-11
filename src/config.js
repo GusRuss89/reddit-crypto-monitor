@@ -13,6 +13,6 @@ module.exports.redditWeights = {
 }
 
 module.exports.emails = {
-  success: 'angus@syntropy.xyz;benlukerussell@gmail.com;scottcllns@gmail.com',
+  success: '<angus@syntropy.xyz>, <benlukerussell@gmail.com>, <scottcllns@gmail.com>',
   fail: 'angus@syntropy.xyz'
 }
