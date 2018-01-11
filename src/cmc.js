@@ -7,12 +7,7 @@ function getTopCoins (numToGet = 100, start = 0) {
       .then(response => {
         let coins = []
         for (let coin of response) {
-          coins.push({
-            id: coin.id,
-            name: coin.name,
-            symbol: coin.symbol,
-            rank: coin.rank,
-            mCap: coin.market_cap_usd,
+          coins.push(Object.assign({}, coin, {
             postMentions: 0,
             postsScore: 0,
             commentMentions: 0,
@@ -20,7 +15,7 @@ function getTopCoins (numToGet = 100, start = 0) {
             totalScore: 0,
             posts: [],
             comments: []
-          })
+          }))
         }
         resolve(coins)
       })
