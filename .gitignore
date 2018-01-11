@@ -1,0 +1,6 @@
+credentials.js
+src/credentials.js
+build/credentials.js
+node_modules
+build/*
+db/*
