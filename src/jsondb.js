@@ -14,9 +14,9 @@ function getDatabase () {
   }
 }
 
-function writeDatabase (data) {
-  fs.copySync(dataFile, `./db/db-${Date.now()}.json`)
-  fs.writeFileSync(dataFile, JSON.stringify(data, null, 2))
+function writeDatabase (data, runDate) {
+  fs.writeFileSync(dataFile, JSON.stringify(data))
+  fs.copySync(dataFile, `./db/db-${runDate}.json`)
 }
 
 module.exports = {

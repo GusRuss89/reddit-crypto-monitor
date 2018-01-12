@@ -4,11 +4,16 @@ import { ftpCredentials } from './credentials'
 
 const ftp = new EasyFtp()
 
-module.exports = function () {
+module.exports = function (runDate) {
   return new Promise((resolve, reject) => {
     ftp.connect(ftpCredentials)
 
-    ftp.upload('db/db.json', '/reddit-crypto.angusrussell.me/db/db.json', (err) => {
+    const remotePath = '/reddit-crypto.angusrussell.me/db/'
+    const files = [
+      { local: 'db/db.json', remote: `${remotePath}db.json`},
+      { local: `db/db-${runDate}.json`, remote: `${remotePath}db-${runDate}.json` }
+    ]
+    ftp.upload(files, (err) => {
       if (err) reject(err)
       ftp.close()
       resolve()

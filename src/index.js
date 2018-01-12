@@ -7,8 +7,10 @@ import jsondb from './jsondb'
 import deploy from './deploy'
 import mail from './mail'
 
+const runDate = Date.now()
+
 mail.addToMsg('Getting coins and reddit posts')
-let coinsPromise = cmc.getTopCoins(300)
+let coinsPromise = cmc.getTopCoins(200)
 let postsPromise = reddit.getPosts()
 let dbPromise = jsondb.getDatabase()
 
@@ -29,15 +31,22 @@ Promise.all([coinsPromise, postsPromise, dbPromise])
     mentionedCoins.reverse()
 
     mail.addToMsg('Sorted. Updating JSON db...')
+    // Move latest to most recent date
     db.dates.unshift({
-      date: Date.now(),
-      coins: mentionedCoins
+      date: db.latest.date,
+      data: `db-${db.latest.date}.json`
     })
-    db.dates.slice(0, 6)
-    jsondb.writeDatabase(db)
+    // Replace latest
+    db.latest = {
+      date: runDate,
+      coins: mentionedCoins
+    }
+    
+    db.dates.slice(0, 60)
+    jsondb.writeDatabase(db, runDate)
 
     mail.addToMsg('Updated. Uploading via FTP...')
-    deploy()
+    deploy(runDate)
       .then(() => {
         mail.addToMsg('Deployed!')
         mail.success()
