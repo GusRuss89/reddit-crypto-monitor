@@ -8,7 +8,7 @@ import deploy from './deploy'
 import mail from './mail'
 
 mail.addToMsg('Getting coins and reddit posts')
-let coinsPromise = cmc.getTopCoins(300, 20)
+let coinsPromise = cmc.getTopCoins(300)
 let postsPromise = reddit.getPosts()
 let dbPromise = jsondb.getDatabase()
 
